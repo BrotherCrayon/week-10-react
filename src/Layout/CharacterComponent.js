@@ -29,25 +29,26 @@ export class CharacterComponent extends Component {
                 }
             
         }
-        // this.getCharacter = this.getCharacter.bind(this);
     }
-
+     
     componentDidMount() {
-        Axios.get('https://rickandmortyapi.com/api/character')
+        var maxNumber = 492;
+        var randomNumber = Math.floor((Math.random() * maxNumber) + 1);
+        console.log(randomNumber);
+        Axios.get(`https://rickandmortyapi.com/api/character/` + randomNumber)
             .then(res => {
                 const charData = res.data;
                 console.log("c" + charData);
                 this.setState({ results: charData });
-                console.log("r" + this.state.results);
+                console.log("r" + this.state.results.results);
             });
     }
 
     render() { 
         return (
             <div>
-                {console.log(this.state.results.results[0])}
-                {this.state.results.results.map(id => <CardComponent results={id} />)
-                }
+                {/* {this.state.results.results.map(id => <CardComponent results={id} />) */}
+                <CardComponent results={this.state.results} />
             </div>
         );
     }
